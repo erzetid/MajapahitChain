@@ -1,0 +1,40 @@
+{
+  "name": "majapahitchain",
+  "version": "1.0.0",
+  "description": "Blockchain platform for Indonesian Media Freedom",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "lint": "tslint **/*.ts",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erzetid/MajapahitChain.git"
+  },
+  "keywords": [
+    "Blockchain",
+    "dAps",
+    "NFT",
+    "WEB3"
+  ],
+  "author": "MajaphitChain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erzetid/MajapahitChain/issues"
+  },
+  "homepage": "https://github.com/erzetid/MajapahitChain#readme",
+  "devDependencies": {
+    "@types/crypto-js": "^4.0.2",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.11",
+    "jest": "^27.4.3",
+    "ts-jest": "^27.1.0",
+    "ts-node": "^10.4.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1"
+  }
+}
