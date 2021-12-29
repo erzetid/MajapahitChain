@@ -2,7 +2,7 @@
   "name": "majapahitchain",
   "version": "1.0.0",
   "description": "Blockchain platform for Indonesian Media Freedom",
-  "main": "main.js",
+  "main": "main.ts",
   "type": "module",
   "scripts": {
     "start": "node --experimental-specifier-resolution=node --loader ts-node/esm main.ts",

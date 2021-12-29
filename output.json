@@ -1,0 +1,30 @@
+{
+  "timestamp": "timestamp",
+  "hash": "1bf8a0af7a04b5593d1c6f2f73a39fde2d0bfd90a3593cb0ac9672795aeeec34",
+  "previousHash": "previousHash",
+  "nonce": 12,
+  "nodesMiner": "nodesMiner",
+  "transaction": [
+    {
+      "senderAddr": "sender",
+      "receipentAddr": "receipent",
+      "content": { "type": "coin", "value": 250 }
+    },
+    {
+      "senderAddr": "sender",
+      "receipentAddr": "receipent",
+      "content": { "type": "token", "value": 250 }
+    }
+  ],
+  "smartContract": [
+    {
+      "owner": "owner",
+      "tokenId": "tokenId",
+      "tokenCode": "tokenCode",
+      "tokenName": "tokenName",
+      "tokenAmounts": 5000,
+      "reserveCoinValue": 50,
+      "tokenValue": 0.01
+    }
+  ]
+}
