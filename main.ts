@@ -1,4 +1,5 @@
 import Block from './src/service/Block';
+import Chain from './src/service/Chain';
 import SmartContract from './src/service/SmartContract';
 import Transaction from './src/service/Transaction';
 
@@ -20,5 +21,7 @@ const newSC = new SmartContract(
   50
 );
 newBlock.addSmartContract(newSC);
+const chain = new Chain();
+chain.addBlock(newBlock);
 
-console.log(JSON.stringify(newBlock));
+console.log(newBlock);

@@ -1,12 +1,15 @@
-export default interface IBlock<T> {
+import SmartContract from '../service/SmartContract';
+import Transaction from '../service/Transaction';
+
+export default interface IBlock {
   timestamp: string;
   hash: string;
   previousHash: string;
   nonce: number;
   nodesMiner: string;
-  transaction: T[];
-  smartContract: T[];
+  transaction: Transaction[];
+  smartContract: SmartContract[];
   calculateHash(): string;
-  addTransaction(transaction: T): void;
-  addSmartContract(smartContract: T): void;
+  addTransaction(transaction: Transaction): void;
+  addSmartContract(smartContract: SmartContract): void;
 }

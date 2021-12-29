@@ -1,14 +1,16 @@
 import SHA256 from 'crypto-js/sha256';
 import IBlock from '../interface/IBlock';
+import SmartContract from './SmartContract';
+import Transaction from './Transaction';
 
-export default class Block<T> implements IBlock<T> {
-  timestamp: string;
-  hash: string;
-  previousHash: string;
-  nonce: number;
-  nodesMiner: string;
-  transaction: T[];
-  smartContract: T[];
+export default class Block implements IBlock {
+  public timestamp: string;
+  public hash: string;
+  public previousHash: string;
+  public nonce: number;
+  public nodesMiner: string;
+  public transaction: Transaction[];
+  public smartContract: SmartContract[];
 
   /**
    * @param {string} timestamp
@@ -45,6 +47,7 @@ export default class Block<T> implements IBlock<T> {
         this.previousHash +
         this.nonce +
         JSON.stringify(this.transaction) +
+        JSON.stringify(this.smartContract) +
         this.nodesMiner
     ).toString();
   }
@@ -56,7 +59,7 @@ export default class Block<T> implements IBlock<T> {
    *
    * @param {Transaction} transaction
    */
-  public addTransaction(transaction: T): void {
+  public addTransaction(transaction: Transaction): void {
     this.transaction.push(transaction);
   }
 
@@ -67,7 +70,7 @@ export default class Block<T> implements IBlock<T> {
    *
    * @param {SmartContract} smartContract
    */
-  public addSmartContract(smartContract: T): void {
+  public addSmartContract(smartContract: SmartContract): void {
     this.smartContract.push(smartContract);
   }
 }
