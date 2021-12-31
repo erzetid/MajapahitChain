@@ -1,27 +1,35 @@
-import Block from './src/service/Block';
-import Chain from './src/service/Chain';
-import SmartContract from './src/service/SmartContract';
+import BlockChain from './src/service/BlockChain';
 import Transaction from './src/service/Transaction';
-
-const newBlock = new Block('timestamp', 'previousHash', 12, 'nodesMiner');
 const newTxCoin = new Transaction('sender', 'receipent');
-newTxCoin.coin(250);
-newBlock.addTransaction(newTxCoin);
-
 const newTxToken = new Transaction('sender', 'receipent');
+newTxCoin.coin(250);
 newTxToken.token(250);
-newBlock.addTransaction(newTxToken);
+const blockChain = new BlockChain();
 
-const newSC = new SmartContract(
-  'owner',
-  'tokenId',
-  'tokenCode',
-  'tokenName',
-  5000,
-  50
+const newTxCoinMiner = new Transaction(
+  '0dc34f82a3c2a65ce7ff55e5679a766d678d5cae37ff86637c13dc137c70fc2b',
+  'receipent'
 );
-newBlock.addSmartContract(newSC);
-const chain = new Chain();
-chain.addBlock(newBlock);
+newTxCoinMiner.coin(10);
 
-console.log(newBlock);
+blockChain.minePendingTransactoin(newTxCoin);
+// Tambah reward transaksi ke blok
+blockChain.minePendingTransactoin(blockChain.mineRewardTransaction());
+blockChain.minePendingTransactoin(newTxCoinMiner);
+
+// ====================================================================
+blockChain.minePendingTransactoin(newTxToken);
+// Tambah reward transaksi ke blok
+blockChain.minePendingTransactoin(blockChain.mineRewardTransaction());
+
+const valid = blockChain.chaining.isChainValid(blockChain.chaining.bloks);
+console.log(JSON.stringify(blockChain.chaining.bloks));
+console.log('Balance');
+console.log(
+  JSON.stringify(
+    blockChain.getBalanceOfAddress(
+      '0dc34f82a3c2a65ce7ff55e5679a766d678d5cae37ff86637c13dc137c70fc2b'
+    )
+  )
+);
+console.log('is chain valid ' + valid);

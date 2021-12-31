@@ -1,3 +1,2 @@
-export const content = 50 / 5000;
-
-console.log(content);
+export const pow: string = '0000fhfhfhfhfhfh';
+console.log(pow.startsWith(Array(5).join('0')));

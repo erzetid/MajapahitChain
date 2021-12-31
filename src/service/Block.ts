@@ -1,55 +1,50 @@
-import SHA256 from 'crypto-js/sha256';
+import crypto from 'crypto';
 import IBlock from '../interface/IBlock';
 import SmartContract from './SmartContract';
 import Transaction from './Transaction';
 
 export default class Block implements IBlock {
-  public timestamp: string;
+  public blockNumber: number;
+  public timestamp: number;
   public hash: string;
   public previousHash: string;
-  public nonce: number;
-  public nodesMiner: string;
+  public nonce: number = 0;
+  public nodesMiner: string = '';
   public transaction: Transaction[];
   public smartContract: SmartContract[];
 
   /**
+   * @param {number} blockNumber
    * @param {string} timestamp
    * @param {string} previousHash
-   * @param {number} nonce
-   * @param {string} nodesMiner
    */
 
-  constructor(
-    timestamp: string,
-    previousHash: string,
-    nonce: number,
-    nodesMiner: string
-  ) {
+  constructor(blockNumber: number, timestamp: number, previousHash: string) {
+    this.blockNumber = blockNumber;
     this.timestamp = timestamp;
-    this.hash = this.calculateHash();
     this.previousHash = previousHash;
-    this.nonce = nonce;
+    this.hash = this.sha256();
     this.transaction = [];
     this.smartContract = [];
-    this.nodesMiner = nodesMiner;
   }
 
   /**
-   * Creates a SHA256 hash of the transaction
-   *
+   * Mengenkripsi SHA256 isi blok untuk dijadikan blok hash
+   * yang nantinya akan dijadikan properti objek untuk verifikasi Blockchain
    * @returns {string}
    */
 
-  public calculateHash(): string {
-    return SHA256(
-      this.timestamp +
-        this.hash +
-        this.previousHash +
-        this.nonce +
-        JSON.stringify(this.transaction) +
-        JSON.stringify(this.smartContract) +
-        this.nodesMiner
-    ).toString();
+  public sha256(): string {
+    return crypto
+      .createHash('sha256')
+      .update(
+        `${this.blockNumber}${this.timestamp}${this.previousHash}${
+          this.nonce
+        }${JSON.stringify(this.transaction)}${JSON.stringify(
+          this.smartContract
+        )}${this.nodesMiner}`
+      )
+      .digest('hex');
   }
 
   /**
@@ -72,5 +67,43 @@ export default class Block implements IBlock {
    */
   public addSmartContract(smartContract: SmartContract): void {
     this.smartContract.push(smartContract);
+  }
+
+  /**
+   * Memualai proses mining/menambang dengan cara mengubah nonce
+   * dari blok agar mendapatkan hashing yang depannya "0" sesuai DIFFICULTY.
+   * DIFFICULTY = 4 berarti angka 0 didepan hasil hashing harus 0000
+   * contoh DIFFICULTY = 4 000063f333a896c00255fc133c790ffbb17524471b08d6b78ca78e42b0e49184.
+   * @param {number} difficulty
+   */
+
+  public mineBlock(DIFFICULTY: number): void {
+    // Mengulang hashing/enkripsi dengan cara mengubah nonce agar menjadi block hash yang diitetapkan.
+    while (true) {
+      const consensus = this.sha256();
+      // console.log(
+      //   `blockNumber: ${this.blockNumber} nonce: ${this.nonce}, consensus: ${consensus}`
+      // );
+
+      // Proses validasi
+      if (this.consensusValid(consensus, DIFFICULTY)) {
+        console.log(`Found valid consensus: ${consensus}!`);
+        this.hash = consensus;
+        break;
+      }
+      this.nonce++;
+    }
+  }
+
+  /**
+   * Proses validasi konsensus dengan cara mencocokan karakter depan string consensus sesuai DIFFICULTY
+   * dengan hasil hashing yang sudah dilakaukan. Akan mengembalikan nilai true jika sudah teapt.
+   * @param {string} consensus
+   * @param {number} DIFFICULTY
+   * @returns {boolean}
+   */
+  private consensusValid(consensus: string, DIFFICULTY: number): boolean {
+    if (consensus.startsWith(Array(DIFFICULTY + 1).join('0'))) return true;
+    return false;
   }
 }

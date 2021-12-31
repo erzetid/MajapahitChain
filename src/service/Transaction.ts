@@ -7,17 +7,29 @@ export default class Transaction implements ITransaction {
   public receipentAddr: Address;
   public content: Content;
 
+  /**
+   *
+   * @param senderAddr
+   * @param receipentAddr
+   */
   constructor(senderAddr: string, receipentAddr: string) {
     this.senderAddr = senderAddr;
     this.receipentAddr = receipentAddr;
     this.content = { type: '', value: 0 };
   }
 
+  /**
+   * Menmbahkan content coin kedalam transaksi
+   * @param {number} value
+   */
   coin(value: number): void {
     const _content = { type: V.COIN, value };
     this.content = { ...this.content, ..._content };
   }
-
+  /**
+   * Menambahkan content coin kedalam transaksi token
+   * @param {number} value
+   */
   token(value: number): void {
     const _content = { type: V.TOKEN, value };
     this.content = { ...this.content, ..._content };

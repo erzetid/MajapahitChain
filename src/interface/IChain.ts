@@ -1,6 +1,7 @@
 import Block from '../service/Block';
 
 export default interface IChain {
-  chain: Block[];
-  GENESIS_BLOCK: Block;
+  bloks: Block[];
+  addBlock(block: Block): void;
+  isChainValid(blocks: Block[]): boolean;
 }
