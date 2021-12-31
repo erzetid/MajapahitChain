@@ -6,14 +6,16 @@ import Transaction from './Transaction';
 export default class Block implements IBlock {
   public blockNumber: number;
   public timestamp: number;
-  public hash: string;
+  // hash tidak dikalkulasi langsung karena ada pembahan object didalam transaction dan smartcontract
   public previousHash: string;
+  public hash: string = '';
   public nonce: number = 0;
   public nodesMiner: string = '';
   public transaction: Transaction[];
   public smartContract: SmartContract[];
 
-  /**
+  /** hash tidak dikalkulasi langsung karena ada pembahan object didalam transaction dan smartcontract,
+   * harus dikalkulasi ulang setiap ada object yang ditambahkan
    * @param {number} blockNumber
    * @param {string} timestamp
    * @param {string} previousHash
@@ -23,7 +25,7 @@ export default class Block implements IBlock {
     this.blockNumber = blockNumber;
     this.timestamp = timestamp;
     this.previousHash = previousHash;
-    this.hash = this.sha256();
+    // this.hash=this.sha256()
     this.transaction = [];
     this.smartContract = [];
   }
@@ -81,14 +83,16 @@ export default class Block implements IBlock {
     // Mengulang hashing/enkripsi dengan cara mengubah nonce agar menjadi block hash yang diitetapkan.
     while (true) {
       const consensus = this.sha256();
-      console.log(
-        `blockNumber: ${this.blockNumber} nonce: ${this.nonce}, consensus: ${consensus}`
-      );
+      // console.log(
+      //   `blockNumber: ${this.blockNumber} nonce: ${this.nonce}, consensus: ${consensus}`
+      // );
 
       // Proses validasi
       if (this.consensusValid(consensus, DIFFICULTY)) {
         console.log(`Found valid consensus: ${consensus}!`);
         this.hash = consensus;
+
+        // TODO kirim ke semua jaringan untuk divalidasi
         break;
       }
       this.nonce++;

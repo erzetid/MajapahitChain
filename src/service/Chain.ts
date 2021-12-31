@@ -4,13 +4,12 @@ import Transaction from './Transaction';
 
 export default class Chain implements IChain {
   public bloks: Block[];
-  readonly GENESIS_BLOCK: Block;
+  readonly GENESIS_BLOCK: Block = this.createGenesisBlock();
 
   /**
    * Proses awal adalah Menmabahkan genesis blok ke dalam chain
    */
   constructor() {
-    this.GENESIS_BLOCK = this.createGenesisBlock();
     this.bloks = [this.GENESIS_BLOCK];
   }
 
@@ -50,7 +49,7 @@ export default class Chain implements IChain {
    */
   public isChainValid(blocks: Block[]): boolean {
     if (blocks.length === 0) {
-      throw new Error("Blockchain can't be empty!");
+      throw new Error('Blockchain cant be empty!');
     }
     if (JSON.stringify(this.GENESIS_BLOCK) !== JSON.stringify(blocks[0])) {
       throw new Error('Invalid first block!');
