@@ -20,18 +20,20 @@ export default class Transaction implements ITransaction {
 
   /**
    * Menmbahkan content coin kedalam transaksi
+   *
    * @param {number} value
    */
   coin(value: number): void {
-    const _content = { type: V.COIN, value };
-    this.content = { ...this.content, ..._content };
+    const content = { type: V.COIN, value };
+    this.content = { ...this.content, ...content };
   }
   /**
    * Menambahkan content coin kedalam transaksi token
+   *
    * @param {number} value
    */
   token(value: number): void {
-    const _content = { type: V.TOKEN, value };
-    this.content = { ...this.content, ..._content };
+    const content = { type: V.TOKEN, value };
+    this.content = { ...this.content, ...content };
   }
 }

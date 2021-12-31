@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Address } from '../utils/type';
 import Block from './Block';
 import Chain from './Chain';
@@ -18,6 +19,7 @@ export default class BlockChain {
 
   /**
    * Menambahkan transaksi kedalam miner (parameter minePendingTransaction berisi semua transaksi yang sudah di push/ditambahakan)
+   *
    * @param {Transaction} transaction
    */
   public minePendingTransactoin(transactions: Transaction): void {
@@ -42,6 +44,7 @@ export default class BlockChain {
 
   /**
    * Menambahkan reward untuk Miner
+   *
    * @returns {Transaction}
    */
   public mineRewardTransaction(): Transaction {
@@ -55,6 +58,7 @@ export default class BlockChain {
    * Mengecek jumlah saldo dari wallet address
    * dengan cara menambahkan value jika pada transaksi blockchain alamat receipentAddr adalah
    * alamat yang dicantumkan, dan akan mengurangi value jika alamat senderAddr alamat yang dicantumkan.
+   *
    * @param {Address} address
    * @returns
    */

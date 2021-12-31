@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import crypto from 'crypto';
 import IBlock from '../interface/IBlock';
 import SmartContract from './SmartContract';
@@ -8,14 +9,15 @@ export default class Block implements IBlock {
   public timestamp: number;
   // hash tidak dikalkulasi langsung karena ada pembahan object didalam transaction dan smartcontract
   public previousHash: string;
-  public hash: string = '';
-  public nonce: number = 0;
-  public nodesMiner: string = '';
+  public hash = '';
+  public nonce = 0;
+  public nodesMiner = '';
   public transaction: Transaction[];
   public smartContract: SmartContract[];
 
   /** hash tidak dikalkulasi langsung karena ada pembahan object didalam transaction dan smartcontract,
    * harus dikalkulasi ulang setiap ada object yang ditambahkan
+   *
    * @param {number} blockNumber
    * @param {string} timestamp
    * @param {string} previousHash
@@ -33,6 +35,7 @@ export default class Block implements IBlock {
   /**
    * Mengenkripsi SHA256 isi blok untuk dijadikan blok hash
    * yang nantinya akan dijadikan properti objek untuk verifikasi Blockchain
+   *
    * @returns {string}
    */
 
@@ -76,6 +79,7 @@ export default class Block implements IBlock {
    * dari blok agar mendapatkan hashing yang depannya "0" sesuai DIFFICULTY.
    * DIFFICULTY = 4 berarti angka 0 didepan hasil hashing harus 0000
    * contoh DIFFICULTY = 4 000063f333a896c00255fc133c790ffbb17524471b08d6b78ca78e42b0e49184.
+   *
    * @param {number} difficulty
    */
 
@@ -102,6 +106,7 @@ export default class Block implements IBlock {
   /**
    * Proses validasi konsensus dengan cara mencocokan karakter depan string consensus sesuai DIFFICULTY
    * dengan hasil hashing yang sudah dilakaukan. Akan mengembalikan nilai true jika sudah teapt.
+   *
    * @param {string} consensus
    * @param {number} DIFFICULTY
    * @returns {boolean}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import IChain from '../interface/IChain';
 import Block from './Block';
 import Transaction from './Transaction';
@@ -15,6 +16,7 @@ export default class Chain implements IChain {
 
   /**
    * Memmbuat Genesis blok atau blok pertama
+   *
    * @returns {Block}
    */
   private createGenesisBlock(): Block {
@@ -28,6 +30,7 @@ export default class Chain implements IChain {
 
   /**
    * Mencari blok terakhir yang sudah dibuat
+   *
    * @returns {Block}
    */
   public getLatestBlock(): Block {
@@ -36,6 +39,7 @@ export default class Chain implements IChain {
 
   /**
    * Menmbahkan blok baru yang sudah diverifikasi sesuai konsensus
+   *
    * @param {Block} block
    */
   public addBlock(block: Block): void {
@@ -44,6 +48,7 @@ export default class Chain implements IChain {
 
   /**
    * Memvalidasi semua blok yang ada diblockchain
+   *
    * @param {Block[]} blocks
    * @returns {boolean}
    */

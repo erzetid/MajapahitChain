@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import BlockChain from './src/service/BlockChain';
 import Transaction from './src/service/Transaction';
 const newTxCoin = new Transaction('sender', 'receipent');
