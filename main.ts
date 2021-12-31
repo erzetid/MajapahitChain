@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import BlockChain from './src/service/BlockChain';
 import Transaction from './src/service/Transaction';
 const newTxCoin = new Transaction('sender', 'receipent');
@@ -33,4 +32,4 @@ console.log(
     )
   )
 );
-console.log('is chain valid ' + valid);
+console.log(`is chain valid  ${valid.toString()}`);
