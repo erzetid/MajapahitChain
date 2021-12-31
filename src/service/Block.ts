@@ -81,9 +81,9 @@ export default class Block implements IBlock {
     // Mengulang hashing/enkripsi dengan cara mengubah nonce agar menjadi block hash yang diitetapkan.
     while (true) {
       const consensus = this.sha256();
-      // console.log(
-      //   `blockNumber: ${this.blockNumber} nonce: ${this.nonce}, consensus: ${consensus}`
-      // );
+      console.log(
+        `blockNumber: ${this.blockNumber} nonce: ${this.nonce}, consensus: ${consensus}`
+      );
 
       // Proses validasi
       if (this.consensusValid(consensus, DIFFICULTY)) {

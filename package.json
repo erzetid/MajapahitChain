@@ -8,7 +8,7 @@
     "start": "node --experimental-specifier-resolution=node --loader ts-node/esm main.ts",
     "dev": "nodemon main.ts",
     "lint": "tslint **/*.ts",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
