@@ -15,8 +15,8 @@ export default class Block implements IBlock {
   public transaction: Transaction[];
   public smartContract: SmartContract[];
 
-  /** hash tidak dikalkulasi langsung karena ada pembahan object didalam transaction dan smartcontract,
-   * harus dikalkulasi ulang setiap ada object yang ditambahkan
+  /** hash tidak dikalkulasi langsung karena ada penambahan object didalam transaction dan smartcontract,
+   * dan harus dikalkulasi ulang setiap ada object yang ditambahkan
    *
    * @param {number} blockNumber
    * @param {string} timestamp

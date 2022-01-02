@@ -50,7 +50,7 @@ export default class BlockChain {
   public mineRewardTransaction(): Transaction {
     console.log('Menambahkan Reward');
     const rewardTx = new Transaction('<COINBASE>', this.NODE_ADDRESS);
-    rewardTx.coin(this.MINING_REWARDS);
+    rewardTx.sendCoin(this.MINING_REWARDS);
     return rewardTx;
   }
 
@@ -67,10 +67,10 @@ export default class BlockChain {
     for (const block of this.chaining.bloks) {
       for (const trans of block.transaction) {
         if (trans.senderAddr === address) {
-          balance -= trans.content.value;
+          balance -= trans.coin;
         }
         if (trans.receipentAddr === address) {
-          balance += trans.content.value;
+          balance += trans.coin;
         }
       }
     }

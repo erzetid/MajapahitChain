@@ -22,7 +22,7 @@ export default class Chain implements IChain {
   private createGenesisBlock(): Block {
     const genesisBlock = new Block(0, Date.now(), 'previousHash');
     const genesCoinInitial = new Transaction('<sender>', '<receipent>');
-    genesCoinInitial.coin(0);
+    genesCoinInitial.sendCoin(0);
     genesisBlock.addTransaction(genesCoinInitial);
     genesisBlock.hash = genesisBlock.sha256();
     return genesisBlock;
