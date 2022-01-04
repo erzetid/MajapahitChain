@@ -108,5 +108,5 @@ dist
 .tern-port
 
 # app develop
-app/
+# app/
 .dccache
