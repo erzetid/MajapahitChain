@@ -1,0 +1,9 @@
+{
+  "nodeId": "23bbe1a5-a4db-4928-821e-97fbc6ddb363",
+  "domain": "coba",
+  "nodeType": "fullNode",
+  "nodeWallet": {
+    "privateKey": "6cba4725c3ab7bb13ed537bfde7cc4a300b6dc811a672293889fdee8a9f5cbfd",
+    "publicKey": "041ee7768de2eb1366f20a516aaa0a02b84cebb6779151157290fe4cbf48a93427fa78766669328a690908d4933bf772188fd5436bf4165f6f614a975be63f2ac6"
+  }
+}

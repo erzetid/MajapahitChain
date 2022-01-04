@@ -69,7 +69,7 @@ Happy linting! 💖
       "error",
       {
         "selector": "interface",
-        "format": ["camelCase", "UPPER_CASE"],
+        "format": ["camelCase", "UPPER_CASE", "PascalCase"],
         "custom": {
           "regex": "^I[A-Z]",
           "match": false

@@ -20,7 +20,7 @@ export default class Wallet implements IWallet {
    *
    * @returns {object} { privateKey, publicKey }
    */
-  public createWallet(): WalletKey {
+  public static createWallet(): WalletKey {
     const key = ec.genKeyPair();
     const publicKey = key.getPublic('hex');
     const privateKey = key.getPrivate('hex');

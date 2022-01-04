@@ -1,7 +1,7 @@
-import { Address, WalletKey } from '../utils/type';
+import { Address } from '../utils/type';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export default interface IWallet {
   genKeyPair(): any;
-  createWallet(): WalletKey;
   getWalletAddres(privateKey: string): Address;
 }
