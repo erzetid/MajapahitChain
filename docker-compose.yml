@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  master:
+    build: .
+    container_name: master
+    volumes:
+      - .:/app
+      - /app/setting/
+    networks:
+      - net
+
+  member1:
+    build: .
+    container_name: member1
+    volumes:
+      - .:/app
+      - /app/setting/
+    networks:
+      - net
+
+  member2:
+    build: .
+    container_name: member2
+    volumes:
+      - .:/app
+      - /app/setting/
+    networks:
+      - net
+
+  member3:
+    build: .
+    container_name: member3
+    volumes:
+      - .:/app
+      - /app/setting/
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge

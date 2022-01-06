@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Address } from '../utils/type';
 import Block from './Block';
 import Chain from './Chain';

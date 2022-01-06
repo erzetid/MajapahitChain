@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import crypto from 'crypto';
 import IBlock from '../interface/IBlock';
 import SmartContract from './SmartContract';

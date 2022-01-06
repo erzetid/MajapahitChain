@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import IChain from '../interface/IChain';
 import Block from './Block';
 import Transaction from './Transaction';
