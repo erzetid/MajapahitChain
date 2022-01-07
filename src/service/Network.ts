@@ -2,11 +2,12 @@
 import * as fs from 'fs';
 import { serialize, deserialize } from 'serializer.ts/Serializer';
 import { v4 as uuidv4 } from 'uuid';
-import { nodesMemberPath, settingPath } from '../utils/variable';
+import INetwork from '../interface/INetwork';
+import { networksPath, settingPath } from '../utils/variable';
 import { Node } from './Node';
 import Wallet from './Wallet';
 
-export default class Network {
+export default class Network implements INetwork {
   public myNode: Node;
   public networks: Node[];
   public activeNetworks: Node[];
@@ -14,7 +15,7 @@ export default class Network {
 
   constructor(domain: string) {
     this.domain = domain;
-    this.myNode = this.createNode(domain);
+    this.myNode = this.addNode(domain);
     this.networks = [];
     this.activeNetworks = [];
     this.load();
@@ -26,7 +27,7 @@ export default class Network {
    * @param {string} domain
    * @returns {Node} node yang dibuat
    */
-  public createNode(domain: string): Node {
+  private addNode(domain: string): Node {
     try {
       const tempNode = deserialize<Node>(
         Node,
@@ -45,16 +46,20 @@ export default class Network {
       if (error.code !== 'ENOENT') {
         throw error;
       }
-      const nodeId = uuidv4();
-      const nodeWallet = Wallet.createWallet();
-      const newNode = new Node(nodeId, domain, 'fullNode', nodeWallet);
-      fs.writeFileSync(
-        settingPath,
-        JSON.stringify(serialize(newNode), undefined, 2),
-        'utf8'
-      );
-      return newNode;
+      return this.addNewNode(domain);
     }
+  }
+
+  private addNewNode(domain: string): Node {
+    const nodeId = uuidv4();
+    const nodeWallet = Wallet.createWallet();
+    const newNode = new Node(nodeId, domain, 'fullNode', nodeWallet);
+    fs.writeFileSync(
+      settingPath,
+      JSON.stringify(serialize(newNode), undefined, 2),
+      'utf8'
+    );
+    return newNode;
   }
 
   /**
@@ -66,13 +71,13 @@ export default class Network {
     try {
       this.networks = deserialize<Node[]>(
         Node,
-        JSON.parse(fs.readFileSync(nodesMemberPath, 'utf8'))
+        JSON.parse(fs.readFileSync(networksPath, 'utf8'))
       );
     } catch (error: any) {
       if (error.code !== 'ENOENT') {
         throw error;
       }
-      this.networks = [];
+      this.register(this.getMyNode());
     }
   }
 
@@ -106,18 +111,6 @@ export default class Network {
       throw new Error('You are node is not registered!');
     }
   }
-  static getMyNode(): Node {
-    try {
-      const myNode = deserialize<Node>(
-        Node,
-        JSON.parse(fs.readFileSync(settingPath, 'utf8'))
-      );
-      delete myNode.nodeWallet;
-      return myNode;
-    } catch (error) {
-      throw new Error('You are node is not registered!');
-    }
-  }
 
   /**
    * Mendaftarkan node kedalam network lalu menyiarkannya ke semua jaringan
@@ -127,24 +120,27 @@ export default class Network {
   public register(node: Node): boolean {
     const tempNode = this.filterNodes(node.nodeId);
     if (!tempNode.length) {
-      this.updateNodes(node);
+      this.addToNetworks(node);
       return true;
     }
+
+    // Jika sudah ada dalam networks maka cek domain apakah sama
     const index: number = this.networks.findIndex(
       (_node) => node.nodeId === _node.nodeId
     );
     if (tempNode[0].domain !== node.domain) {
       this.networks.splice(index, 1);
-      this.updateNodes(node);
+      this.addToNetworks(node);
       return true;
     }
     return false;
   }
 
-  public updateNetworks(networks: Network[]): boolean {
+  // Update all in network
+  public updateNetworks(networks: Node[]): boolean {
     try {
       fs.writeFileSync(
-        nodesMemberPath,
+        networksPath,
         JSON.stringify(serialize(networks), undefined, 0),
         'utf8'
       );
@@ -154,25 +150,19 @@ export default class Network {
     }
   }
 
-  private updateNodes(node: Node): void {
+  public addToNetworks(node: Node): void {
     try {
-      this.load();
       this.networks.push(node);
       fs.writeFileSync(
-        nodesMemberPath,
+        networksPath,
         JSON.stringify(serialize(this.networks), undefined, 0),
         'utf8'
       );
+      // memperbarui isi networks
+      this.load();
     } catch (error) {
       throw new Error('The nodes is already registered!');
     }
-  }
-
-  static getAllNodes(): Node[] {
-    return deserialize<Node[]>(
-      Node,
-      JSON.parse(fs.readFileSync(nodesMemberPath, 'utf8'))
-    );
   }
 
   /**
@@ -181,7 +171,7 @@ export default class Network {
    *
    * @param {Node} node
    */
-  public addActiveNetwork(node: Node) {
+  public addActiveNetwork(node: Node): void {
     this.activeNetworks.push(node);
   }
 }

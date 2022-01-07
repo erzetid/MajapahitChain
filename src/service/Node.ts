@@ -1,6 +1,7 @@
+import INode from '../interface/INode';
 import { WalletKey } from '../utils/type';
 
-export class Node {
+export class Node implements INode {
   public nodeId: string;
   public domain: string;
   public nodeType: string;

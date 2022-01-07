@@ -1,9 +1,9 @@
 {
-  "nodeId": "3fc5ebad-f3df-46c5-bd04-9191e8685514",
-  "domain": "192.168.43.128:3002",
+  "nodeId": "4c1fd450-50dd-45b9-8987-385b23fb9903",
+  "domain": "192.168.43.128:3474",
   "nodeType": "fullNode",
   "nodeWallet": {
-    "privateKey": "59a7036cd7bd0000cd1577b946cdf5de82867c32fc58b8726d326d0ffd26bf77",
-    "publicKey": "0413f1d26b146773b160c7e91aef26582f292f9090ca1410be9972bc6c801e99f2fc317add79a62286d8cf6d8dd70d2ee3f724de5ba6eaab3c3b6abf7dff133fb0"
+    "privateKey": "bd3c9532a4e5f5d00f6f67b9d67840166ae72d92c6e592bbae98be8bbc2d84e0",
+    "publicKey": "040ab8347c9b1463ca6135344d36895a389531acc1a7c5d1fb30fcd4e025b78be89d22d1fd4a996adc0cc54ffa79221abeba0fc9d0f0f615d8c308b7bf0bb5a815"
   }
 }

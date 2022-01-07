@@ -1,8 +1,6 @@
-import { variable as V } from './env';
-import Client from './src/connection/Client';
-import Server from './src/connection/Server';
 import * as readline from 'node:readline';
 import { Node } from './src/service/Node';
+import P2PServer from './src/connection/P2PServer';
 const questionAnswer = (): Promise<string> => {
   return new Promise((resolve) => {
     const rl = readline.createInterface({
@@ -27,10 +25,8 @@ export const getAnswers = async (): Promise<void> => {
     }
     console.log('Oops tidak boleh kosong');
   }
-  const client = new Client(V.PORT);
-  const app = new Server(V.PORT);
-  client.addMasterServer(masterServerNode);
+  const app = new P2PServer();
+  app.addDomainRef(domain);
   app.listen();
-  client.listen();
 };
 void getAnswers();

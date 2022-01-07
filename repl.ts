@@ -1,6 +1,16 @@
 // import { io } from 'socket.io-client';
-// import Network from './src/service/Network';
-// import { Node } from './src/service/Node';
+// const url = 'http://localhost:3474';
+// const socket = io(url);
+
+// socket.on('connect', () => {
+//   console.log(`Koneksi berhasil ${url}`);
+// });
+// socket.emit('networkRegistration', 'network baru');
+
+// socket.on('acceptedRegistartion', (networks) => {
+//   console.log('Registrasi diterima');
+//   console.log(networks);
+// });
 
 // const myNode = Network.getMyNode();
 // const nodes = Network.getAllNodes();
@@ -23,5 +33,5 @@
 //   });
 //   // }
 // });clear
-export const message = 'oke siap';
-console.log(message);
+export const clg = 'Oke2';
+console.log(clg);
